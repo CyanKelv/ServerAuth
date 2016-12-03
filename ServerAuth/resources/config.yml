@@ -6,7 +6,7 @@ IPLogin: false
 force-single-auth: true
 #Allow not authenticated users to move
 allow-move: false
-#Block the usage of "./"
+#Block the usage of "./" (Before login or register only)
 block-dotslash: true
 #Block chat for not authenticated users
 block-chat: true
