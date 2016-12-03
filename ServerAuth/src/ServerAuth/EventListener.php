@@ -121,10 +121,15 @@ class EventListener implements Listener {
     }
     
     public function onPlayerCommand(PlayerCommandPreprocessEvent $event){
-	$m = strtolower($event->getMessage());
-	if(substr($m, 0, 2) == "./"){
-	  $event->setCancelled(true);
-	}
+	$p = $event->getPlayer();
+	$m = $event->getMessage();
+	if($this->plugin->getConfig()->getAll()["block-dotslash"]){
+	  if(!ServerAuth::getAPI()->isPlayerAuthenticated($p)){
+	    if(substr($m, 0, 2) == "./"){
+		    $event->setCancelled(true);
+	    }
+	  }
+	}    
 	    
         if($this->plugin->getConfig()->getAll()["block-commands"]){
     		if(!ServerAuth::getAPI()->isPlayerAuthenticated($event->getPlayer())){
