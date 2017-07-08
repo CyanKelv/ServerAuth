@@ -50,18 +50,16 @@ class EventListener implements Listener {
 				$player->close("", $this->plugin->translateColors("&", ServerAuth::getAPI()->getConfigLanguage()->getAll()["single-auth"]), $this->plugin->translateColors("&", ServerAuth::getAPI()->getConfigLanguage()->getAll()["single-auth"]), false);
 				$event->setCancelled(true);
 			}
-			if(ServerAuth::getAPI()->isPlayerAuthenticated($player)){
-				//IP Authentication
-				if($cfg["IPLogin"]){
-					$playerdata = ServerAuth::getAPI()->getPlayerData($player->getName());
-					if($playerdata["ip"] == $player->getAddress()){
-						ServerAuth::getAPI()->authenticatePlayer($player, $playerdata["password"], false);
-					}else{
-						ServerAuth::getAPI()->deauthenticatePlayer($event->getPlayer());
-					}
-				}else{
-					ServerAuth::getAPI()->deauthenticatePlayer($event->getPlayer());
-				}
+			//IP Authentication
+			if($cfg["IPLogin"]){
+	        		$playerdata = ServerAuth::getAPI()->getPlayerData($player->getName());
+		        	if($playerdata["ip"] == $player->getAddress()){
+			        	ServerAuth::getAPI()->authenticatePlayer($player, $playerdata["password"], false);
+			        }else{
+				        ServerAuth::getAPI()->deauthenticatePlayer($event->getPlayer());
+               			}
+		 	}else{
+				ServerAuth::getAPI()->deauthenticatePlayer($event->getPlayer());
 			}
 		}
 	}
